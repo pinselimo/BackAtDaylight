@@ -40,14 +40,14 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     // guarantee that compute() will be called before onUpdate().
     function compute(info) {
         // See Activity.Info in the documentation for available information.
-        var distanceLeft = 8.0f;
-        var speedNeeded = 12.0f;
+        var distanceLeft = 0.0f;
+        var speedNeeded = 0.0f;
 
         if(info has :distanceToDestination) {
             if(info.distanceToDestination != null) {
                 distanceLeft = info.distanceToDestination;
             } else {
-                distanceLeft = 42.0f;
+                distanceLeft = 0.0f;
             }
         }
         if (info has :currentLocation) {
@@ -63,7 +63,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                 speedNeeded = distanceLeft / hours_left;
 
             } else {
-                speedNeeded = 63.0f;
+                speedNeeded = 0.0f;
             }
         }
         
