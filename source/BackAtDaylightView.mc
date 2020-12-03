@@ -31,6 +31,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
     function initialize() {
         SimpleDataField.initialize();
+        label = loadResource(Rez.Strings.label);
     }
 
     // The given info object contains all the current workout information.
