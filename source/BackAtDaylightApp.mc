@@ -34,5 +34,4 @@ class BackAtDaylightApp extends Application.AppBase {
     function getInitialView() {
         return [ new BackAtDaylightView() ];
     }
-
 }
