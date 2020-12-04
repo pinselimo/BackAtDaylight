@@ -1,5 +1,5 @@
 <strings>
-    <string id="AppName">${appName}</string>
+    <string id="AppName">BackAtDaylight</string>
 
     <string id="label">Avg. Spd. Sunset</string>
 </strings>
