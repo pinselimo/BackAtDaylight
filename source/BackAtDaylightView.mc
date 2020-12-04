@@ -20,7 +20,6 @@ using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.Time;
 using Toybox.Lang;
-using Toybox.System;
 
 class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
@@ -59,8 +58,8 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                 var time_left = sunset.subtract(now); // .value().toDouble();
                 var hours_left = time_left.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
                 
-                // TODO: After the sunset, don't display negative speed
-                speedNeeded = distanceLeft / hours_left;
+                // TODO: After the sunset, display something different
+                speedNeeded = hours_left; // distanceLeft / hours_left;
 
             } else {
                 speedNeeded = 0.0f;
