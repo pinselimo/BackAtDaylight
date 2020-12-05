@@ -49,7 +49,7 @@ class Test {
 
         return Math.round(sunset.value()) == 1577902086; // ~ 18:00
     }
-    
+
     (:test)
     function test_sunset_utc_south(logger) {
         var backAtDaylightView = new BackAtDaylightView();
@@ -106,5 +106,58 @@ class Test {
         logger.debug("Sunset 45° north: " + dateString);
 
         return Math.round(sunset.value()) == 1577896176; // ~ 18:00
+    }
+
+    (:test)
+    function test_sunset_east_west(logger) {
+        var backAtDaylightView = new BackAtDaylightView();
+        var pos = new Position.Location(
+            {
+                :latitude => 0.0,
+                :longitude => 180.0,
+                :format => :degrees
+            }
+            );
+        var moment = new Time.Moment(1577858400); // 1/1/2020
+
+        var sunset_east = backAtDaylightView.get_sunset(moment, pos);
+        
+        var info = Time.Gregorian.utcInfo(sunset_east, Time.FORMAT_SHORT);
+        var dateString = Lang.format(
+                "$1$:$2$:$3$ $4$ $5$ $6$",
+                [
+                    info.hour,
+                    info.min,
+                    info.sec,
+                    info.day,
+                    info.month,
+                    info.year
+                ]);
+        logger.debug("Sunset east: " + dateString);
+
+        pos = new Position.Location(
+            {
+                :latitude => 0.0,
+                :longitude => 180.0,
+                :format => :degrees
+            }
+            );
+
+        var sunset_west = backAtDaylightView.get_sunset(moment, pos);
+        
+        info = Time.Gregorian.utcInfo(sunset_west, Time.FORMAT_SHORT);
+        dateString = Lang.format(
+                "$1$:$2$:$3$ $4$ $5$ $6$",
+                [
+                    info.hour,
+                    info.min,
+                    info.sec,
+                    info.day,
+                    info.month,
+                    info.year
+                ]);
+        logger.debug("Sunset west: " + dateString);
+
+        return sunset_east.value() == sunset_west.value();
     }
 }
