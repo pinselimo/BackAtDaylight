@@ -47,7 +47,7 @@ class Test {
                 ]);
         logger.debug("Sunset at equator: " + dateString);
 
-        return Math.round(sunset.value()) == 1577902086; // ~ 18:00
+        return Math.round(sunset.value()) == 1577902086;
     }
 
     (:test)
@@ -76,7 +76,7 @@ class Test {
                 ]);
         logger.debug("Sunset 45° south: " + dateString);
 
-        return Math.round(sunset.value()) == 1577908242; // ~ 18:00
+        return Math.round(sunset.value()) == 1577908242;
     }
 
     (:test)
@@ -105,7 +105,7 @@ class Test {
                 ]);
         logger.debug("Sunset 45° north: " + dateString);
 
-        return Math.round(sunset.value()) == 1577896176; // ~ 18:00
+        return Math.round(sunset.value()) == 1577896176;
     }
 
     (:test)
