@@ -31,17 +31,16 @@ class Test {
                 :format => :degrees
             }
             );
-        var moment = new Time.Moment(1577836800); // 1/1/2020
+        var moment = new Time.Moment(1577858400); // 1/1/2020
 
         var sunset = backAtDaylightView.get_sunset(moment, pos);
         var info = Time.Gregorian.utcInfo(sunset, Time.FORMAT_SHORT);
         var dateString = Lang.format(
-                "$1$:$2$:$3$ $4$ $5$ $6$ $7$",
+                "$1$:$2$:$3$ $4$ $5$ $6$",
                 [
                     info.hour,
                     info.min,
                     info.sec,
-                    info.day_of_week,
                     info.day,
                     info.month,
                     info.year
@@ -49,5 +48,63 @@ class Test {
         logger.debug("Sunset at equator: " + dateString);
 
         return Math.round(sunset.value()) == 1577902086; // ~ 18:00
+    }
+    
+    (:test)
+    function test_sunset_utc_south(logger) {
+        var backAtDaylightView = new BackAtDaylightView();
+        var pos = new Position.Location(
+            {
+                :latitude => -45.0,
+                :longitude => 0.0,
+                :format => :degrees
+            }
+            );
+        var moment = new Time.Moment(1577858400); // 1/1/2020
+
+        var sunset = backAtDaylightView.get_sunset(moment, pos);
+        var info = Time.Gregorian.utcInfo(sunset, Time.FORMAT_SHORT);
+        var dateString = Lang.format(
+                "$1$:$2$:$3$ $4$ $5$ $6$",
+                [
+                    info.hour,
+                    info.min,
+                    info.sec,
+                    info.day,
+                    info.month,
+                    info.year
+                ]);
+        logger.debug("Sunset 45° south: " + dateString);
+
+        return Math.round(sunset.value()) == 1577908242; // ~ 18:00
+    }
+
+    (:test)
+    function test_sunset_utc_north(logger) {
+        var backAtDaylightView = new BackAtDaylightView();
+        var pos = new Position.Location(
+            {
+                :latitude => 45.0,
+                :longitude => 0.0,
+                :format => :degrees
+            }
+            );
+        var moment = new Time.Moment(1577858400); // 1/1/2020
+
+        var sunset = backAtDaylightView.get_sunset(moment, pos);
+        var info = Time.Gregorian.utcInfo(sunset, Time.FORMAT_SHORT);
+        var dateString = Lang.format(
+                "$1$:$2$:$3$ $4$ $5$ $6$",
+                [
+                    info.hour,
+                    info.min,
+                    info.sec,
+                    info.day,
+                    info.month,
+                    info.year
+                ]);
+        logger.debug("Sunset 45° north: " + dateString);
+
+        return Math.round(sunset.value()) == 1577896176; // ~ 18:00
     }
 }
