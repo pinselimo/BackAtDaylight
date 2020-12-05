@@ -45,16 +45,19 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
             if (info.currentLocation != null) {
                 var today = new Time.Moment(Time.today().value());
                 var now = new Time.Moment(Time.now().value());
-
                 var sunset = get_sunset(today, info.currentLocation);
-                var time_left = sunset.subtract(now);
-                var hours_left = time_left.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
-                
-                // TODO: After the sunset, display something different
-                speedNeeded = distanceLeft / (1000 * hours_left);
+
+                if (sunset.greaterThan(now)) {
+                    var time_left = sunset.subtract(now);
+                    var hours_left = time_left.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
+                    
+                    speedNeeded = distanceLeft / (1000 * hours_left);
+                } else {
+                    speedNeeded = "Lightspeed";
+                }
 
             } else {
-                speedNeeded = 0.0f;
+                speedNeeded = "_.__";
             }
         }
         
