@@ -17,6 +17,7 @@
 using Toybox.Math;
 using Toybox.WatchUi;
 using Toybox.Time;
+using Toybox.System;
 
 class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
@@ -25,24 +26,26 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     const JULIAN_YEAR_2000 = 2451545.0;
     const FRAC_JULIAN_DAY = 0.0008;
 
+    var unit = " kph";
+
     function initialize() {
         SimpleDataField.initialize();
         label = loadResource(Rez.Strings.label);
+
+        var distanceUnits = System.getDeviceSettings().distanceUnits;
+
+        if (distanceUnits == System.UNIT_STATUTE) {
+            unit = " mph";
+        }
     }
 
     function compute(info) {
-        var distanceLeft = 0.0f;
-        var speedNeeded = 0.0f;
+        var speedNeeded = "_.__" + unit;
 
-        if(info has :distanceToDestination) {
-            if(info.distanceToDestination != null) {
-                distanceLeft = info.distanceToDestination;
-            } else {
-                distanceLeft = 0.0f;
-            }
-        }
-        if (info has :currentLocation) {
-            if (info.currentLocation != null) {
+        if(info has :distanceToDestination and info has :currentLocation) {
+            if(info.distanceToDestination != null and info.currentLocation != null) {
+                var distanceLeft = info.distanceToDestination;
+ 
                 var today = new Time.Moment(Time.today().value());
                 var now = new Time.Moment(Time.now().value());
                 var sunset = get_sunset(today, info.currentLocation);
@@ -51,16 +54,12 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                     var time_left = sunset.subtract(now);
                     var hours_left = time_left.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
                     
-                    speedNeeded = distanceLeft / (1000 * hours_left);
+                    speedNeeded = distanceLeft / (1000 * hours_left) + unit;
                 } else {
                     speedNeeded = "Lightspeed";
                 }
-
-            } else {
-                speedNeeded = "_.__";
             }
         }
-        
         return speedNeeded;
     }
 
