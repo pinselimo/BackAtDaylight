@@ -62,7 +62,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                 }
 
             } else {
-                speedNeeded = "No data";
+                speedNeeded = "_.__";
             }
         }
         
