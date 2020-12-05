@@ -27,6 +27,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     const FRAC_JULIAN_DAY = 0.0008;
 
     var unit = " kph";
+    var adjustment = 1000;
 
     function initialize() {
         SimpleDataField.initialize();
@@ -36,6 +37,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
         if (distanceUnits == System.UNIT_STATUTE) {
             unit = " mph";
+            adjustment *= 1.609344;
         }
     }
 
@@ -47,14 +49,14 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                 var distanceLeft = info.distanceToDestination;
  
                 var today = new Time.Moment(Time.today().value());
-                var now = new Time.Moment(Time.getCurrentTime(Time.CURRENT_TIME_RTC).value());
+                var now = new Time.Moment(Time.now().value());
                 var sunset = get_sunset(today, info.currentLocation);
 
                 if (sunset.greaterThan(now)) {
                     var time_left = sunset.subtract(now);
                     var hours_left = time_left.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
                     
-                    speedNeeded = distanceLeft / (1000 * hours_left);
+                    speedNeeded = distanceLeft / (adjustment * hours_left);
                     speedNeeded = speedNeeded.format("%3.2f") + unit;
                 } else {
                     speedNeeded = "Lightspeed";
