@@ -47,7 +47,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                 var distanceLeft = info.distanceToDestination;
  
                 var today = new Time.Moment(Time.today().value());
-                var now = new Time.Moment(Time.now().value());
+                var now = new Time.Moment(Time.getCurrentTime(Time.CURRENT_TIME_RTC).value());
                 var sunset = get_sunset(today, info.currentLocation);
 
                 if (sunset.greaterThan(now)) {
