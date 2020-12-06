@@ -18,7 +18,7 @@ using Toybox.Test;
 using Toybox.Time;
 using Toybox.Position;
 
-(:debug) class Test {
+(:debug) class TestMethods {
 
     (:test)
     function test_sunset_utc_equator(logger) {
