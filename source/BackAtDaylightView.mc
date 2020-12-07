@@ -50,7 +50,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
  
                 var today = new Time.Moment(Time.today().value());
                 var now = new Time.Moment(Time.now().value());
-                var sunset = get_sunset(today, info.currentLocation);
+                var sunset = getSunset(today, info.currentLocation);
 
                 if (sunset.greaterThan(now)) {
                     var timeLeft = sunset.subtract(now);
