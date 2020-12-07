@@ -66,12 +66,16 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
         return speedNeeded;
     }
 
-    function get_sunset(moment, pos) {
-        var loc = pos.toRadians();
+    //! Calculates the time of sunset.
+    //! @param [Time.Moment] date The time for which the sunset should be calculated.
+    //! @param [Position.Location] loc The coordinates for which sunset should be determined.
+    //! @return [Time.Moment] The time of sunset.
+    function get_sunset(date, loc) {
+        var loc = loc.toRadians();
         var lat = loc[0];
         var lon = loc[1];
 
-        var julian_day = JULIAN_YEAR_1970 + Math.round(moment.value().toDouble() / Time.Gregorian.SECONDS_PER_DAY) + 0.5;
+        var julian_day = JULIAN_YEAR_1970 + Math.round(date.value().toDouble() / Time.Gregorian.SECONDS_PER_DAY) + 0.5;
         var n = julian_day - JULIAN_YEAR_2000 + FRAC_JULIAN_DAY;
 
         // Mean solar noon
