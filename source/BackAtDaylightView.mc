@@ -26,8 +26,8 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     const JULIAN_YEAR_2000 = 2451545.0;
     const FRAC_JULIAN_DAY = 0.0008;
 
-    var unit = " kph";
-    var adjustment = 1000;
+    hidden var unit = " kph";
+    hidden var adjustment = 1000;
 
     function initialize() {
         SimpleDataField.initialize();
