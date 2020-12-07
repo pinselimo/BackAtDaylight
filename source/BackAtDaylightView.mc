@@ -53,10 +53,10 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                 var sunset = get_sunset(today, info.currentLocation);
 
                 if (sunset.greaterThan(now)) {
-                    var time_left = sunset.subtract(now);
-                    var hours_left = time_left.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
+                    var timeLeft = sunset.subtract(now);
+                    var hoursLeft = timeLeft.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
                     
-                    speedNeeded = distanceLeft / (adjustment * hours_left);
+                    speedNeeded = distanceLeft / (adjustment * hoursLeft);
                     speedNeeded = speedNeeded.format("%3.2f") + unit;
                 } else {
                     speedNeeded = "Lightspeed";
@@ -68,9 +68,9 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
     //! Calculates the time of sunset.
     //! @param [Time.Moment] date The time for which the sunset should be calculated.
-    //! @param [Position.Location] loc The coordinates for which sunset should be determined.
+    //! @param [Position.Location] pos The coordinates for which sunset should be determined.
     //! @return [Time.Moment] The time of sunset.
-    function get_sunset(date, loc) {
+    function getSunset(date, loc) {
         var loc = loc.toRadians();
         var lat = loc[0];
         var lon = loc[1];
@@ -79,9 +79,9 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
         var n = julian_day - JULIAN_YEAR_2000 + FRAC_JULIAN_DAY;
 
         // Mean solar noon
-        var j_star = n - lon / (2*Math.PI);
+        var jStar = n - lon / (2*Math.PI);
         
-        var m = 6.240059967 + 0.0172019715 * j_star;
+        var m = 6.240059967 + 0.0172019715 * jStar;
 
         // Center
         var c = (1.9148*Math.sin(m) + 0.02*Math.sin(2*m) + 0.0003*Math.sin(3*m)) * RAD;
@@ -90,7 +90,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
         var lambda = m + c + Math.PI + 1.796593063;
         
         // Solar transit
-        var j_transit = JULIAN_YEAR_2000 + j_star + 0.0053*Math.sin(m) - 0.0069*Math.sin(2*lambda);
+        var jTransit = JULIAN_YEAR_2000 + jStar + 0.0053*Math.sin(m) - 0.0069*Math.sin(2*lambda);
 
         // Declination of the sun
         var delta = Math.asin(Math.sin(lambda) * Math.sin(23.44*RAD));
@@ -98,8 +98,8 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
         // Hour angle
         var omega_zero = (Math.sin(-0.833*RAD) - Math.sin(lat)*Math.sin(delta)) / (Math.cos(lat)*Math.cos(delta));
         
-        var j_sunset = j_transit + Math.acos(omega_zero)/(2*Math.PI);
+        var jSunset = jTransit + Math.acos(omega_zero)/(2*Math.PI);
 
-        return new Time.Moment((j_sunset - JULIAN_YEAR_1970) * Time.Gregorian.SECONDS_PER_DAY);
+        return new Time.Moment((jSunset - JULIAN_YEAR_1970) * Time.Gregorian.SECONDS_PER_DAY);
     }
 }
