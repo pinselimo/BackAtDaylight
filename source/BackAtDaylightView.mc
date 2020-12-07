@@ -71,9 +71,9 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     //! @param [Position.Location] pos The coordinates for which sunset should be determined.
     //! @return [Time.Moment] The time of sunset.
     function getSunset(date, loc) {
-        var loc = loc.toRadians();
-        var lat = loc[0];
-        var lon = loc[1];
+        var loc_rad = loc.toRadians();
+        var lat = loc_rad[0];
+        var lon = loc_rad[1];
 
         var julian_day = JULIAN_YEAR_1970 + Math.round(date.value().toDouble() / Time.Gregorian.SECONDS_PER_DAY) + 0.5;
         var n = julian_day - JULIAN_YEAR_2000 + FRAC_JULIAN_DAY;
