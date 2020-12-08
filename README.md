@@ -4,6 +4,10 @@ This tiny project provides a data field for Garmin devices showing at which mini
 
 Especially during winter I find myself often calculating how much I need to stress about getting home at daylight. With this data field it's easy to keep track of just how much in a hurry I need to be.
 
+## Download
+
+This data field can be downloaded for free from the [ConnectIQ-Store](https://apps.garmin.com/en-US/apps/f24f5537-c034-4d5e-a84a-c5a9ce1e899f).
+
 ## Prerequisites
 
 In order to function the device needs to have a course set, such that it knows how far it is to your destination.
