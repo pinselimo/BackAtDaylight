@@ -25,6 +25,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     const JULIAN_YEAR_1970 = 2440588.0;
     const JULIAN_YEAR_2000 = 2451545.0;
     const FRAC_JULIAN_DAY = 0.0008;
+    const STATUTE_UNIT_FACTOR = 1.609344;
 
     hidden var unit = " kph";
     hidden var adjustment = 1000;
@@ -37,7 +38,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
         if (distanceUnits == System.UNIT_STATUTE) {
             unit = " mph";
-            adjustment *= 1.609344;
+            adjustment *= STATUTE_UNIT_FACTOR;
         }
     }
 
