@@ -57,8 +57,8 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                     var timeLeft = sunset.subtract(now);
                     var hoursLeft = timeLeft.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
                     
-                    speedNeeded = distanceLeft / (adjustment * hoursLeft);
-                    speedNeeded = speedNeeded.format("%3.2f") + unit;
+                    var result = distanceLeft / (adjustment * hoursLeft);
+                    speedNeeded = result.format("%3.2f") + unit;
                 } else {
                     speedNeeded = "Lightspeed";
                 }
