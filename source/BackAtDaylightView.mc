@@ -47,7 +47,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
         if(info has :distanceToDestination and info has :currentLocation) {
             if(info.distanceToDestination != null and info.currentLocation != null) {
-                var distanceLeft = info.distanceToDestination;
+                var distanceLeft = info.distanceToDestination / adjustment;
  
                 var today = new Time.Moment(Time.today().value());
                 var now = new Time.Moment(Time.now().value());
@@ -57,7 +57,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                     var timeLeft = sunset.subtract(now);
                     var hoursLeft = timeLeft.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
                     
-                    var result = distanceLeft / (adjustment * hoursLeft);
+                    var result = distanceLeft / hoursLeft;
                     speedNeeded = result.format("%3.2f") + unit;
                 } else {
                     speedNeeded = "Lightspeed";
