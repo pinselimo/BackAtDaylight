@@ -46,7 +46,8 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     }
 
     function compute(info) {
-        var speedNeeded = "_.__" + unit;
+        var displayUnits = app.getProperty("displayUnits");
+        var speedNeeded = displayUnits ? "__._" + unit : "__._";
 
         if(info has :distanceToDestination and info has :currentLocation) {
             if(info.distanceToDestination != null and info.currentLocation != null) {
@@ -62,12 +63,8 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                     
                     var result = distanceLeft / hoursLeft;
 
-                    if(app.getProperty("displayUnits")) {
-                        speedNeeded = result.format("%3.2f") + unit;
-                    } else {
-                        speedNeeded = result;
-                    }
-
+                    speedNeeded = displayUnits ? result.format("%3.2f") + unit : result;
+ 
                 } else {
                     speedNeeded = "Lightspeed";
                 }
