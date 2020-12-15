@@ -27,11 +27,13 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     const FRAC_JULIAN_DAY = 0.0008;
     const STATUTE_UNIT_FACTOR = 1.609344;
 
+    hidden var app;
     hidden var unit = " kph";
     hidden var adjustment = 1000;
 
     function initialize() {
         SimpleDataField.initialize();
+        app = App.getApp();
         label = loadResource(Rez.Strings.label);
 
         var distanceUnits = System.getDeviceSettings().distanceUnits;
@@ -58,7 +60,13 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                     var hoursLeft = timeLeft.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
                     
                     var result = distanceLeft / hoursLeft;
-                    speedNeeded = result.format("%3.2f") + unit;
+
+                    if(app.getProperty("displayUnits")) {
+                        speedNeeded = result.format("%3.2f") + unit;
+                    } else {
+                        speedNeeded = result;
+                    }
+
                 } else {
                     speedNeeded = "Lightspeed";
                 }
