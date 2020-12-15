@@ -18,6 +18,7 @@ using Toybox.Math;
 using Toybox.WatchUi;
 using Toybox.Time;
 using Toybox.System;
+using Toybox.Application;
 
 class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
@@ -33,7 +34,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
     function initialize() {
         SimpleDataField.initialize();
-        app = App.getApp();
+        app = Application.getApp();
         label = loadResource(Rez.Strings.label);
 
         var distanceUnits = System.getDeviceSettings().distanceUnits;
