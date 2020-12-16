@@ -18,6 +18,7 @@ using Toybox.Math;
 using Toybox.WatchUi;
 using Toybox.Time;
 using Toybox.System;
+using Toybox.Application;
 
 class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
@@ -27,11 +28,13 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     const FRAC_JULIAN_DAY = 0.0008;
     const STATUTE_UNIT_FACTOR = 1.609344;
 
+    hidden var displayUnits;
     hidden var unit = " kph";
     hidden var adjustment = 1000;
 
     function initialize() {
         SimpleDataField.initialize();
+        displayUnits = Application.getApp().getProperty("displayUnits");
         label = loadResource(Rez.Strings.label);
 
         var distanceUnits = System.getDeviceSettings().distanceUnits;
@@ -43,7 +46,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     }
 
     function compute(info) {
-        var speedNeeded = "_.__" + unit;
+        var speedNeeded = "No data";
 
         if(info has :distanceToDestination and info has :currentLocation) {
             if(info.distanceToDestination != null and info.currentLocation != null) {
@@ -58,7 +61,9 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                     var hoursLeft = timeLeft.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
                     
                     var result = distanceLeft / hoursLeft;
-                    speedNeeded = result.format("%3.2f") + unit;
+
+                    speedNeeded = displayUnits ? result.format("%3.2f") + unit : result.format("%3.2f");
+ 
                 } else {
                     speedNeeded = "Lightspeed";
                 }
