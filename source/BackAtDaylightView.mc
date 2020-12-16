@@ -46,7 +46,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
     }
 
     function compute(info) {
-        var speedNeeded = displayUnits ? "__._" + unit : "-/-";
+        var speedNeeded = "No data";
 
         if(info has :distanceToDestination and info has :currentLocation) {
             if(info.distanceToDestination != null and info.currentLocation != null) {
