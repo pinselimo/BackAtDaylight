@@ -120,7 +120,7 @@ using Toybox.Position;
         var moment = new Time.Moment(1577858400); // 1/1/2020
 
         var sunset_east = backAtDaylightView.get_sunset(moment, pos);
-        
+
         var info = Time.Gregorian.utcInfo(sunset_east, Time.FORMAT_SHORT);
         var dateString = Lang.format(
                 "$1$:$2$:$3$ $4$ $5$ $6$",
@@ -143,7 +143,7 @@ using Toybox.Position;
             );
 
         var sunset_west = backAtDaylightView.get_sunset(moment, pos);
-        
+
         info = Time.Gregorian.utcInfo(sunset_west, Time.FORMAT_SHORT);
         dateString = Lang.format(
                 "$1$:$2$:$3$ $4$ $5$ $6$",

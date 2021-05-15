@@ -51,7 +51,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
         if(info has :distanceToDestination and info has :currentLocation) {
             if(info.distanceToDestination != null and info.currentLocation != null) {
                 var distanceLeft = info.distanceToDestination / adjustment;
- 
+
                 var today = new Time.Moment(Time.today().value());
                 var now = new Time.Moment(Time.now().value());
                 var sunset = getSunset(today, info.currentLocation);
@@ -59,11 +59,11 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
                 if (sunset.greaterThan(now)) {
                     var timeLeft = sunset.subtract(now);
                     var hoursLeft = timeLeft.value().toDouble() / Time.Gregorian.SECONDS_PER_HOUR;
-                    
+
                     var result = distanceLeft / hoursLeft;
 
                     speedNeeded = displayUnits ? result.format("%3.2f") + unit : result.format("%3.2f");
- 
+
                 } else {
                     speedNeeded = "Lightspeed";
                 }
@@ -86,7 +86,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
         // Mean solar noon
         var jStar = n - lon / (2*Math.PI);
-        
+
         var m = 6.240059967 + 0.0172019715 * jStar;
 
         // Center
@@ -94,7 +94,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
         // Ecliptic longitude
         var lambda = m + c + Math.PI + 1.796593063;
-        
+
         // Solar transit
         var jTransit = JULIAN_YEAR_2000 + jStar + 0.0053*Math.sin(m) - 0.0069*Math.sin(2*lambda);
 
@@ -103,7 +103,7 @@ class BackAtDaylightView extends WatchUi.SimpleDataField  {
 
         // Hour angle
         var omega_zero = (Math.sin(-0.833*RAD) - Math.sin(lat)*Math.sin(delta)) / (Math.cos(lat)*Math.cos(delta));
-        
+
         var jSunset = jTransit + Math.acos(omega_zero)/(2*Math.PI);
 
         return new Time.Moment((jSunset - JULIAN_YEAR_1970) * Time.Gregorian.SECONDS_PER_DAY);
